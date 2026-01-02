@@ -16,13 +16,13 @@ price and list used furniture by generating:
 - **Infra**: Google Kubernetes Engine (GKE)
 
 ## Repository Structure
-
+```
 backend/ # FastAPI backend
 frontend/ # Streamlit UI
 k8s/ # Kubernetes manifests
 ollama/ # Ollama Docker setup
 query/ # Utility scripts
-
+```
 
 ## How It Works
 
