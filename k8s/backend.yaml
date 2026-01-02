@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          # IMPORTANT: keep this image exactly as your WORKING registry/tag
+          image: us-west1-docker.pkg.dev/furnitureflip-ollama-gcp/furnitureflip/furnitureflip-backend:NEW
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            # ---- App behavior ----
+            - name: DEBUG
+              value: "0"
+            - name: ENABLE_LIVE_COMPS
+              value: "1"
+
+            # ---- Ollama (adjust only if you changed it) ----
+            # If your backend talks to an ollama service inside the cluster, keep it.
+            # If you run Ollama elsewhere, set the reachable URL.
+            - name: OLLAMA_BASE_URL
+              value: "http://ollama:11434"
+
+            # ---- Google Programmable Search Engine (CSE) ----
+            - name: GOOGLE_CSE_API_KEY
+              value: "AIzaSyBJtP-KSWWGwapik4dnC6PpUDsxXX1-eu0"
+            - name: GOOGLE_CSE_CX
+              value: "f0913dde169264bc3"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
+

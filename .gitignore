@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Streamlit
+.streamlit/
+
+# Docker
+*.log
+
+# Kubernetes secrets
+*kube-secret*
+*secret.yaml
+
+# Ollama / models
+ollama/models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Cloud Shell
+.cloudshell/
